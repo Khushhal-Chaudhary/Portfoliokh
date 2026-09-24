@@ -1,3 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khushhal Chaudhary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #08171e;
+    --ink-soft: #042b44;
+    --paper: #eef6f9;
+    --paper-raised: #ffffff;
+    --moss: #08171e;
+    --moss-deep: #042b44;
+    --wheat: #096b90;
+    --wheat-deep: #074f6b;
+    --text: #08171e;
+    --text-dim: #3d6579;
+    --line: #c9e2ea;
+    --line-soft: #ddedf3;
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eaf5f9;
+      --paper: #08171e;
+      --paper-raised: #0d2531;
+      --text: #eaf5f9;
+      --text-dim: #71b7d5;
+      --line: #123a4a;
+      --line-soft: #0d2531;
+      --moss: #eaf5f9;
+      --moss-deep: #ffffff;
+      --wheat: #71b7d5;
+      --wheat-deep: #096b90;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eaf5f9;
+    --paper: #08171e;
+    --paper-raised: #0d2531;
+    --text: #eaf5f9;
+    --text-dim: #71b7d5;
+    --line: #123a4a;
+    --line-soft: #0d2531;
+    --moss: #eaf5f9;
+    --moss-deep: #ffffff;
+    --wheat: #71b7d5;
+    --wheat-deep: #096b90;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: inherit; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    margin: 0;
+    color: var(--ink);
+  }
+  a { color: var(--moss); text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:hover { color: var(--wheat); }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--wheat);
+    outline-offset: 3px;
+  }
+
+  .wrap { max-width: 740px; margin: 0 auto; padding: 0 30px; }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    background: linear-gradient(172deg, var(--ink) 0%, var(--moss-deep) 130%);
+    color: #e4f2f7;
+    padding: 64px 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (prefers-color-scheme: dark) { header.hero { background: linear-gradient(172deg, #04101a 0%, #042b44 130%); } }
+  header.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(115deg, rgba(244,241,228,0.035) 0 1px, transparent 1px 64px);
+    pointer-events: none;
+    animation: drift 26s linear infinite;
+  }
+  @keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-64px,0,0); } }
+  @media (prefers-reduced-motion: reduce) { header.hero::before { animation: none; } }
+
+  .hero-inner { opacity: 0; transform: translateY(10px); animation: rise .7s cubic-bezier(.2,.7,.3,1) forwards; }
+  @media (prefers-reduced-motion: reduce) { .hero-inner { opacity: 1; transform: none; animation: none; } }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .profile-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .hero-photo {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(113,183,213,0.55);
+    box-shadow: 0 0 0 6px rgba(113,183,213,0.15);
+    flex-shrink: 0;
+    background: var(--moss-deep);
+    transition: transform .5s cubic-bezier(.2,.7,.3,1);
+  }
+  header.hero:hover .hero-photo { transform: scale(1.04); }
+  @media (prefers-reduced-motion: reduce) { header.hero:hover .hero-photo { transform: none; } }
+
+  .profile-card h1 {
+    margin-top: 22px;
+    font-size: clamp(2.1rem, 5.4vw, 2.75rem);
+    letter-spacing: -0.01em;
+    color: #e4f2f7;
+  }
+  .profile-card p.role { margin: 9px 0 0; color: #a9cfdd; font-size: 1.03rem; max-width: 36ch; }
+
+  .detail-card {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid rgba(228,242,247,0.14);
+    border-top: 2px solid var(--wheat);
+    border-radius: 6px;
+    padding: 4px 26px;
+    background: rgba(255,255,255,0.025);
+  }
+  .detail-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px dotted rgba(228,242,247,0.18);
+    opacity: 0;
+    transform: translateY(6px);
+    animation: rise .5s cubic-bezier(.2,.7,.3,1) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 300ms);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  @media (prefers-reduced-motion: reduce) { .detail-row { opacity: 1; transform: none; animation: none; } }
+  .detail-row .d-key { color: #71b7d5; white-space: nowrap; font-size: 0.82rem; letter-spacing: 0.01em; }
+  .detail-row .d-val { color: #e4f2f7; font-weight: 500; font-size: 0.98rem; text-align: right; }
+
+  .video-frame {
+    margin-top: 36px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgba(244,241,228,0.16);
+    aspect-ratio: 16 / 9;
+    background: #04101a;
+  }
+  .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  /* ---------- Sections ---------- */
+  section {
+    padding: 46px 0;
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+  }
+  section.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { section { opacity: 1; transform: none; transition: none; } }
+  section:last-of-type { border-bottom: none; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+  section h2 { font-size: 1.44rem; }
+  .section-note { color: var(--text-dim); font-size: 0.88rem; font-style: italic; font-family: 'Fraunces', Georgia, serif; }
+
+  .lede { font-size: 1.05rem; max-width: 58ch; color: var(--text); }
+
+  .kv-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+  .kv-list li { display: flex; align-items: baseline; gap: 10px; padding: 13px 4px; border-bottom: 1px dotted var(--line); }
+  .kv-list li:last-child { border-bottom: none; }
+  .kv-list .field-label { color: var(--text-dim); font-size: 0.85rem; width: 92px; flex-shrink: 0; }
+  .kv-list .leader { flex: 1; border-bottom: 1px dotted var(--line-soft); height: 0; margin-bottom: 5px; }
+  .kv-list a, .kv-list span.plain { font-size: 1rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 9px 10px; }
+  .tag {
+    padding: 7px 15px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+    transition: transform .18s ease, border-color .18s ease;
+  }
+  .tag:hover { transform: translateY(-2px); border-color: var(--wheat); }
+  @media (prefers-color-scheme: dark) { .tag { color: var(--text); } }
+  @media (prefers-reduced-motion: reduce) { .tag:hover { transform: none; } }
+
+  .record-card { border: 1px solid var(--line); border-radius: 3px; background: var(--paper-raised); padding: 20px 22px; margin-bottom: 14px; }
+  .record-card:last-child { margin-bottom: 0; }
+  .record-card h3 { font-size: 1.08rem; margin-bottom: 4px; }
+  .record-card .record-meta { color: var(--text-dim); font-size: 0.87rem; margin-bottom: 8px; }
+  .record-card p { margin: 0; font-size: 0.96rem; }
+
+  .hobby-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+  }
+  .hobby-list li { padding: 16px 18px; background: var(--paper-raised); font-size: 0.96rem; color: var(--text); transition: background .18s ease; }
+  .hobby-list li:hover { background: var(--line-soft); }
+
+  /* ---------- Contact form ---------- */
+  form.contact-form { display: grid; gap: 18px; max-width: 440px; }
+  .field { display: grid; gap: 6px; }
+  label { font-size: 0.86rem; color: var(--text-dim); }
+  input[type="text"], input[type="email"] {
+    font: inherit; font-size: 0.98rem; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 3px;
+    background: var(--paper-raised); color: var(--text);
+    transition: border-color .15s ease;
+  }
+  input[type="text"]:focus, input[type="email"]:focus { border-color: var(--wheat); }
+  fieldset { border: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  fieldset legend { font-size: 0.86rem; color: var(--text-dim); padding: 0 0 6px; }
+  .radio-row, .check-row { display: flex; align-items: center; gap: 8px; font-size: 0.96rem; color: var(--text); }
+  .radio-row input, .check-row input { accent-color: var(--moss); width: 16px; height: 16px; }
+  button[type="submit"] {
+    justify-self: start; font: inherit; font-weight: 600; font-size: 0.96rem;
+    padding: 11px 24px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+    border-radius: 3px; cursor: pointer; transition: background 0.15s ease, color .15s ease, transform .15s ease;
+  }
+  button[type="submit"]:hover { background: var(--wheat-deep); border-color: var(--wheat-deep); transform: translateY(-1px); }
+  button[type="submit"]:active { transform: translateY(0); }
+  button[type="submit"]:disabled { opacity: 0.55; cursor: not-allowed; }
+  @media (prefers-reduced-motion: reduce) { button[type="submit"]:hover { transform: none; } }
+  .form-note { font-size: 0.85rem; color: var(--wheat-deep); min-height: 1.2em; }
+  @media (prefers-color-scheme: dark) { .form-note { color: var(--wheat); } }
+  .field-error { color: #a5442c; font-size: 0.8rem; min-height: 1em; }
+
+  .map-frame { margin-top: 18px; border-radius: 3px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4 / 3; filter: grayscale(0.15); }
+  .map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  footer {
+    padding: 34px 0 48px; text-align: left; color: var(--text-dim); font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .to-top { color: var(--text-dim); font-size: 0.85rem; }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 0 20px; }
+    header.hero { padding: 46px 0 34px; }
+    .hero-photo { width: 100px; height: 100px; }
+    .detail-card { padding: 4px 18px; }
+    .kv-list .field-label { width: 78px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="profile-card">
+      <img class="hero-photo" src="https://media.licdn.com/dms/image/v2/D4E03AQGJjmZUsq7P2A/profile-displayphoto-scale_400_400/B4EaBsHcn1H8Ag-/0/1788520288171?e=1791417600&v=beta&t=_bqtYpy80wGklf5bkGKhqP2CSiirRTOv4XsaQx9V_J0" alt="Portrait of Khushhal Chaudhary" width="128" height="128">
+      <h1>Khushhal Chaudhary</h1>
+      <p class="role">B.Tech student, Artificial Intelligence &amp; Data Science, Zenith School of AI</p>
+
+      <div class="detail-card">
+        <div class="detail-row" style="--i:0"><span class="d-key">Roll number</span><span class="d-val">2616400025</span></div>
+        <div class="detail-row" style="--i:1"><span class="d-key">Branch</span><span class="d-val">AI &amp; Data Science</span></div>
+        <div class="detail-row" style="--i:2"><span class="d-key">College</span><span class="d-val">Zenith School of AI</span></div>
+        <div class="detail-row" style="--i:3"><span class="d-key">Campus</span><span class="d-val">K.R. Mangalam University</span></div>
+      </div>
+    </div>
+
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/l79ATpmLRzE" title="Zenith School of AI Campus" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about">
+    <div class="section-head"><h2>About</h2></div>
+    <p class="lede">I'm working toward a career in software development and, eventually, AI engineering — writing clean code, building real projects, and learning by doing rather than just studying theory. I'm especially interested in applying AI in fields where it's still underused, including healthcare, education, and agriculture.</p>
+  </section>
+
+  <section id="education">
+    <div class="section-head"><h2>Education</h2></div>
+    <div class="record-card">
+      <h3>B.Tech, Artificial Intelligence</h3>
+      <p class="record-meta">Zenith School of AI, K.R. Mangalam University &middot; Full-time &middot; Expected 2030</p>
+      <p>2026 – 2030</p>
+    </div>
+    <div class="record-card">
+      <h3>Class 12 &middot; Science</h3>
+      <p class="record-meta">CBSE &middot; 86.83% &middot; 2025</p>
+    </div>
+    <div class="record-card">
+      <h3>Class 10</h3>
+      <p class="record-meta">CISCE &middot; 91.83% &middot; 2023</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><h2>Skills</h2></div>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">HTML / CSS</span>
+      <span class="tag">Machine Learning</span>
+    </div>
+  </section>
+
+  <section id="subjects">
+    <div class="section-head"><h2>Subjects</h2></div>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">Full Stack Development</span>
+      <span class="tag">Mathematics</span>
+      <span class="tag">Customer Discovery</span>
+    </div>
+  </section>
+
+  <section id="leadership">
+    <div class="section-head"><h2>Leadership &amp; activities</h2></div>
+    <div class="record-card">
+      <h3>Head Boy</h3>
+      <p class="record-meta">Dewan Public School, Class 12</p>
+      <p>Hosted school-wide events, including Independence Day and Republic Day programmes, and served as a link between students and staff.</p>
+    </div>
+    <div class="record-card">
+      <h3>Class Monitor</h3>
+      <p class="record-meta">S.D.A. Senior Secondary School, Class 10</p>
+      <p>Coordinated with teachers and classmates; completed Community Service coursework with a Grade A.</p>
+    </div>
+  </section>
+
+  <section id="hobbies">
+    <div class="section-head"><h2>Outside of class</h2></div>
+    <ul class="hobby-list">
+      <li>Playing cricket</li>
+      <li>Playing chess</li>
+      <li>Reading books</li>
+      <li>Watching movies</li>
+    </ul>
+  </section>
+
+  <section id="contact-details">
+    <div class="section-head"><h2>Get in touch</h2></div>
+    <ul class="kv-list">
+      <li><span class="field-label">Email</span><span class="leader"></span><a href="mailto:khushhalchaudhary69@gmail.com">khushhalchaudhary69@gmail.com</a></li>
+      <li><span class="field-label">Phone</span><span class="leader"></span><a href="tel:+919557664881">+91 95576 64881</a></li>
+    </ul>
+  </section>
+
+  <section id="social">
+    <div class="section-head"><h2>Find me online</h2></div>
+    <ul class="kv-list">
+      <li><span class="field-label">LinkedIn</span><span class="leader"></span><a href="https://www.linkedin.com/in/khushhal-chaudhary-508762432/" target="_blank" rel="noopener">khushhal-chaudhary</a></li>
+      <li><span class="field-label">GitHub</span><span class="leader"></span><a href="https://github.com/Khushhal-Chaudhary" target="_blank" rel="noopener">Khushhal-Chaudhary</a></li>
+      <li><span class="field-label">WhatsApp</span><span class="leader"></span><a href="https://wa.me/919557664881" target="_blank" rel="noopener">+91 95576 64881</a></li>
+    </ul>
+  </section>
+
+  <section id="contact-form">
+    <div class="section-head">
+      <h2>Send a message</h2>
+      <span class="section-note">a reply usually takes a day or two</span>
+    </div>
+    <form class="contact-form" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" placeholder="Enter your name" id="name" name="name" required>
+        <span class="field-error" id="nameError"></span>
+      </div>
+
+      <fieldset>
+        <legend>Where you'll find me</legend>
+        <div class="radio-row">
+          <input type="radio" name="social" id="link" value="LinkedIn">
+          <label for="link">LinkedIn</label>
+        </div>
+        <div class="radio-row">
+          <input type="radio" name="social" id="what" value="WhatsApp">
+          <label for="what">WhatsApp</label>
+        </div>
+        <div class="radio-row">
+          <input type="radio" name="social" id="others" value="Other">
+          <label for="others">Other</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" placeholder="Enter your email" name="email" id="email" required>
+        <span class="field-error" id="emailError"></span>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" name="sub" id="sub">
+        <label for="sub">Subscribe me to updates</label>
+      </div>
+
+      <button type="submit" id="submitBtn">Send message</button>
+      <p class="form-note" id="formNote" role="status"></p>
+    </form>
+  </section>
+
+  <section id="address">
+    <div class="section-head"><h2>Base</h2></div>
+    <p>K.R. Mangalam University, Sohna–Gurgaon Rd, Gurugram, Sohna Rural, Haryana 122103</p>
+    <div class="map-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3513.877447275001!2d77.06659967527517!3d28.2717326758637!2m3!1f0!2f0!3f0!4f13.1!3m3!1m2!1s0x390d25a4b2bc03f9%3A0x9f642d679654b239!2sK.R.%20Mangalam%20University!5e0!3m2!1sen!2sin!4v1790267602072!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Khushhal Chaudhary &middot; Zenith School of AI</p>
+  <a class="to-top" href="#top">Back to top</a>
+</footer>
+
+<script>
+  // Scroll-triggered section reveal
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sections = document.querySelectorAll('main section');
+
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    sections.forEach((s) => s.classList.add('is-visible'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    sections.forEach((s) => observer.observe(s));
+  }
+
+  // Contact form validation
+  const form = document.querySelector('.contact-form');
+  const note = document.getElementById('formNote');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function validate() {
+    let ok = true;
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    if (!name) {
+      nameError.textContent = 'Please enter your name.';
+      ok = false;
+    } else {
+      nameError.textContent = '';
+    }
+
+    if (!email || !emailPattern.test(email)) {
+      emailError.textContent = 'Please enter a valid email address.';
+      ok = false;
+    } else {
+      emailError.textContent = '';
+    }
+
+    return ok;
+  }
+
+  [nameInput, emailInput].forEach((el) => {
+    el.addEventListener('blur', validate);
+    el.addEventListener('input', () => {
+      if (nameError.textContent || emailError.textContent) validate();
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      note.textContent = 'Please fix the fields above before sending.';
+      return;
+    }
+    const name = nameInput.value.trim();
+    note.textContent = `Thanks, ${name} — this is a demo form, so nothing was actually sent.`;
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -411,7 +912,7 @@
 
 </body>
 </html> -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -901,4 +1402,505 @@
 </script>
 
 </body>
-</html>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khushhal Chaudhary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #08171e;
+    --ink-soft: #042b44;
+    --paper: #eef6f9;
+    --paper-raised: #ffffff;
+    --moss: #08171e;
+    --moss-deep: #042b44;
+    --wheat: #096b90;
+    --wheat-deep: #074f6b;
+    --text: #08171e;
+    --text-dim: #3d6579;
+    --line: #c9e2ea;
+    --line-soft: #ddedf3;
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eaf5f9;
+      --paper: #08171e;
+      --paper-raised: #0d2531;
+      --text: #eaf5f9;
+      --text-dim: #71b7d5;
+      --line: #123a4a;
+      --line-soft: #0d2531;
+      --moss: #eaf5f9;
+      --moss-deep: #ffffff;
+      --wheat: #71b7d5;
+      --wheat-deep: #096b90;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eaf5f9;
+    --paper: #08171e;
+    --paper-raised: #0d2531;
+    --text: #eaf5f9;
+    --text-dim: #71b7d5;
+    --line: #123a4a;
+    --line-soft: #0d2531;
+    --moss: #eaf5f9;
+    --moss-deep: #ffffff;
+    --wheat: #71b7d5;
+    --wheat-deep: #096b90;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  * { box-sizing: inherit; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    margin: 0;
+    color: var(--ink);
+  }
+  a { color: var(--moss); text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:hover { color: var(--wheat); }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--wheat);
+    outline-offset: 3px;
+  }
+
+  .wrap { max-width: 740px; margin: 0 auto; padding: 0 30px; }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    background: linear-gradient(172deg, var(--ink) 0%, var(--moss-deep) 130%);
+    color: #e4f2f7;
+    padding: 64px 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (prefers-color-scheme: dark) { header.hero { background: linear-gradient(172deg, #04101a 0%, #042b44 130%); } }
+  header.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(115deg, rgba(244,241,228,0.035) 0 1px, transparent 1px 64px);
+    pointer-events: none;
+    animation: drift 26s linear infinite;
+  }
+  @keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-64px,0,0); } }
+  @media (prefers-reduced-motion: reduce) { header.hero::before { animation: none; } }
+
+  .hero-inner { opacity: 0; transform: translateY(10px); animation: rise .7s cubic-bezier(.2,.7,.3,1) forwards; }
+  @media (prefers-reduced-motion: reduce) { .hero-inner { opacity: 1; transform: none; animation: none; } }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .profile-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .hero-photo {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(113,183,213,0.55);
+    box-shadow: 0 0 0 6px rgba(113,183,213,0.15);
+    flex-shrink: 0;
+    background: var(--moss-deep);
+    transition: transform .5s cubic-bezier(.2,.7,.3,1);
+  }
+  header.hero:hover .hero-photo { transform: scale(1.04); }
+  @media (prefers-reduced-motion: reduce) { header.hero:hover .hero-photo { transform: none; } }
+
+  .profile-card h1 {
+    margin-top: 22px;
+    font-size: clamp(2.1rem, 5.4vw, 2.75rem);
+    letter-spacing: -0.01em;
+    color: #e4f2f7;
+  }
+  .profile-card p.role { margin: 9px 0 0; color: #a9cfdd; font-size: 1.03rem; max-width: 36ch; }
+
+  .detail-card {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid rgba(228,242,247,0.14);
+    border-top: 2px solid var(--wheat);
+    border-radius: 6px;
+    padding: 4px 26px;
+    background: rgba(255,255,255,0.025);
+  }
+  .detail-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px dotted rgba(228,242,247,0.18);
+    opacity: 0;
+    transform: translateY(6px);
+    animation: rise .5s cubic-bezier(.2,.7,.3,1) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 300ms);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  @media (prefers-reduced-motion: reduce) { .detail-row { opacity: 1; transform: none; animation: none; } }
+  .detail-row .d-key { color: #71b7d5; white-space: nowrap; font-size: 0.82rem; letter-spacing: 0.01em; }
+  .detail-row .d-val { color: #e4f2f7; font-weight: 500; font-size: 0.98rem; text-align: right; }
+
+  .video-frame {
+    margin-top: 36px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgba(244,241,228,0.16);
+    aspect-ratio: 16 / 9;
+    background: #04101a;
+  }
+  .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  /* ---------- Sections ---------- */
+  section {
+    padding: 46px 0;
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+  }
+  section.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { section { opacity: 1; transform: none; transition: none; } }
+  section:last-of-type { border-bottom: none; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+  section h2 { font-size: 1.44rem; }
+  .section-note { color: var(--text-dim); font-size: 0.88rem; font-style: italic; font-family: 'Fraunces', Georgia, serif; }
+
+  .lede { font-size: 1.05rem; max-width: 58ch; color: var(--text); }
+
+  .kv-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+  .kv-list li { display: flex; align-items: baseline; gap: 10px; padding: 13px 4px; border-bottom: 1px dotted var(--line); }
+  .kv-list li:last-child { border-bottom: none; }
+  .kv-list .field-label { color: var(--text-dim); font-size: 0.85rem; width: 92px; flex-shrink: 0; }
+  .kv-list .leader { flex: 1; border-bottom: 1px dotted var(--line-soft); height: 0; margin-bottom: 5px; }
+  .kv-list a, .kv-list span.plain { font-size: 1rem; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 9px 10px; }
+  .tag {
+    padding: 7px 15px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+    transition: transform .18s ease, border-color .18s ease;
+  }
+  .tag:hover { transform: translateY(-2px); border-color: var(--wheat); }
+  @media (prefers-color-scheme: dark) { .tag { color: var(--text); } }
+  @media (prefers-reduced-motion: reduce) { .tag:hover { transform: none; } }
+
+  .record-card { border: 1px solid var(--line); border-radius: 3px; background: var(--paper-raised); padding: 20px 22px; margin-bottom: 14px; }
+  .record-card:last-child { margin-bottom: 0; }
+  .record-card h3 { font-size: 1.08rem; margin-bottom: 4px; }
+  .record-card .record-meta { color: var(--text-dim); font-size: 0.87rem; margin-bottom: 8px; }
+  .record-card p { margin: 0; font-size: 0.96rem; }
+
+  .hobby-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+  }
+  .hobby-list li { padding: 16px 18px; background: var(--paper-raised); font-size: 0.96rem; color: var(--text); transition: background .18s ease; }
+  .hobby-list li:hover { background: var(--line-soft); }
+
+  /* ---------- Contact form ---------- */
+  form.contact-form { display: grid; gap: 18px; max-width: 440px; }
+  .field { display: grid; gap: 6px; }
+  label { font-size: 0.86rem; color: var(--text-dim); }
+  input[type="text"], input[type="email"] {
+    font: inherit; font-size: 0.98rem; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 3px;
+    background: var(--paper-raised); color: var(--text);
+    transition: border-color .15s ease;
+  }
+  input[type="text"]:focus, input[type="email"]:focus { border-color: var(--wheat); }
+  fieldset { border: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  fieldset legend { font-size: 0.86rem; color: var(--text-dim); padding: 0 0 6px; }
+  .radio-row, .check-row { display: flex; align-items: center; gap: 8px; font-size: 0.96rem; color: var(--text); }
+  .radio-row input, .check-row input { accent-color: var(--moss); width: 16px; height: 16px; }
+  button[type="submit"] {
+    justify-self: start; font: inherit; font-weight: 600; font-size: 0.96rem;
+    padding: 11px 24px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+    border-radius: 3px; cursor: pointer; transition: background 0.15s ease, color .15s ease, transform .15s ease;
+  }
+  button[type="submit"]:hover { background: var(--wheat-deep); border-color: var(--wheat-deep); transform: translateY(-1px); }
+  button[type="submit"]:active { transform: translateY(0); }
+  button[type="submit"]:disabled { opacity: 0.55; cursor: not-allowed; }
+  @media (prefers-reduced-motion: reduce) { button[type="submit"]:hover { transform: none; } }
+  .form-note { font-size: 0.85rem; color: var(--wheat-deep); min-height: 1.2em; }
+  @media (prefers-color-scheme: dark) { .form-note { color: var(--wheat); } }
+  .field-error { color: #a5442c; font-size: 0.8rem; min-height: 1em; }
+
+  .map-frame { margin-top: 18px; border-radius: 3px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4 / 3; filter: grayscale(0.15); }
+  .map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  footer {
+    padding: 34px 0 48px; text-align: left; color: var(--text-dim); font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .to-top { color: var(--text-dim); font-size: 0.85rem; }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 0 20px; }
+    header.hero { padding: 46px 0 34px; }
+    .hero-photo { width: 100px; height: 100px; }
+    .detail-card { padding: 4px 18px; }
+    .kv-list .field-label { width: 78px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="profile-card">
+      <img class="hero-photo" src="https://media.licdn.com/dms/image/v2/D4E03AQGJjmZUsq7P2A/profile-displayphoto-scale_400_400/B4EaBsHcn1H8Ag-/0/1788520288171?e=1791417600&v=beta&t=_bqtYpy80wGklf5bkGKhqP2CSiirRTOv4XsaQx9V_J0" alt="Portrait of Khushhal Chaudhary" width="128" height="128">
+      <h1>Khushhal Chaudhary</h1>
+      <p class="role">B.Tech student, Artificial Intelligence &amp; Data Science, Zenith School of AI</p>
+
+      <div class="detail-card">
+        <div class="detail-row" style="--i:0"><span class="d-key">Roll number</span><span class="d-val">2616400025</span></div>
+        <div class="detail-row" style="--i:1"><span class="d-key">Branch</span><span class="d-val">AI &amp; Data Science</span></div>
+        <div class="detail-row" style="--i:2"><span class="d-key">College</span><span class="d-val">Zenith School of AI</span></div>
+        <div class="detail-row" style="--i:3"><span class="d-key">Campus</span><span class="d-val">K.R. Mangalam University</span></div>
+      </div>
+    </div>
+
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/l79ATpmLRzE" title="Zenith School of AI Campus" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about">
+    <div class="section-head"><h2>About</h2></div>
+    <p class="lede">I'm working toward a career in software development and, eventually, AI engineering — writing clean code, building real projects, and learning by doing rather than just studying theory. I'm especially interested in applying AI in fields where it's still underused, including healthcare, education, and agriculture.</p>
+  </section>
+
+  <section id="education">
+    <div class="section-head"><h2>Education</h2></div>
+    <div class="record-card">
+      <h3>B.Tech, Artificial Intelligence</h3>
+      <p class="record-meta">Zenith School of AI, K.R. Mangalam University &middot; Full-time &middot; Expected 2030</p>
+      <p>2026 – 2030</p>
+    </div>
+    <div class="record-card">
+      <h3>Class 12 &middot; Science</h3>
+      <p class="record-meta">CBSE &middot; 86.83% &middot; 2025</p>
+    </div>
+    <div class="record-card">
+      <h3>Class 10</h3>
+      <p class="record-meta">CISCE &middot; 91.83% &middot; 2023</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><h2>Skills</h2></div>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">HTML / CSS</span>
+      <span class="tag">Machine Learning</span>
+    </div>
+  </section>
+
+  <section id="subjects">
+    <div class="section-head"><h2>Subjects</h2></div>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">Full Stack Development</span>
+      <span class="tag">Mathematics</span>
+      <span class="tag">Customer Discovery</span>
+    </div>
+  </section>
+
+  <section id="leadership">
+    <div class="section-head"><h2>Leadership &amp; activities</h2></div>
+    <div class="record-card">
+      <h3>Head Boy</h3>
+      <p class="record-meta">Dewan Public School, Class 12</p>
+      <p>Hosted school-wide events, including Independence Day and Republic Day programmes, and served as a link between students and staff.</p>
+    </div>
+    <div class="record-card">
+      <h3>Class Monitor</h3>
+      <p class="record-meta">S.D.A. Senior Secondary School, Class 10</p>
+      <p>Coordinated with teachers and classmates; completed Community Service coursework with a Grade A.</p>
+    </div>
+  </section>
+
+  <section id="hobbies">
+    <div class="section-head"><h2>Outside of class</h2></div>
+    <ul class="hobby-list">
+      <li>Playing cricket</li>
+      <li>Playing chess</li>
+      <li>Reading books</li>
+      <li>Watching movies</li>
+    </ul>
+  </section>
+
+  <section id="contact-details">
+    <div class="section-head"><h2>Get in touch</h2></div>
+    <ul class="kv-list">
+      <li><span class="field-label">Email</span><span class="leader"></span><a href="mailto:khushhalchaudhary69@gmail.com">khushhalchaudhary69@gmail.com</a></li>
+      <li><span class="field-label">Phone</span><span class="leader"></span><a href="tel:+919557664881">+91 95576 64881</a></li>
+    </ul>
+  </section>
+
+  <section id="social">
+    <div class="section-head"><h2>Find me online</h2></div>
+    <ul class="kv-list">
+      <li><span class="field-label">LinkedIn</span><span class="leader"></span><a href="https://www.linkedin.com/in/khushhal-chaudhary-508762432/" target="_blank" rel="noopener">khushhal-chaudhary</a></li>
+      <li><span class="field-label">GitHub</span><span class="leader"></span><a href="https://github.com/Khushhal-Chaudhary" target="_blank" rel="noopener">Khushhal-Chaudhary</a></li>
+      <li><span class="field-label">WhatsApp</span><span class="leader"></span><a href="https://wa.me/919557664881" target="_blank" rel="noopener">+91 95576 64881</a></li>
+    </ul>
+  </section>
+
+  <section id="contact-form">
+    <div class="section-head">
+      <h2>Send a message</h2>
+      <span class="section-note">a reply usually takes a day or two</span>
+    </div>
+    <form class="contact-form" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" placeholder="Enter your name" id="name" name="name" required>
+        <span class="field-error" id="nameError"></span>
+      </div>
+
+      <fieldset>
+        <legend>Where you'll find me</legend>
+        <div class="radio-row">
+          <input type="radio" name="social" id="link" value="LinkedIn">
+          <label for="link">LinkedIn</label>
+        </div>
+        <div class="radio-row">
+          <input type="radio" name="social" id="what" value="WhatsApp">
+          <label for="what">WhatsApp</label>
+        </div>
+        <div class="radio-row">
+          <input type="radio" name="social" id="others" value="Other">
+          <label for="others">Other</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" placeholder="Enter your email" name="email" id="email" required>
+        <span class="field-error" id="emailError"></span>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" name="sub" id="sub">
+        <label for="sub">Subscribe me to updates</label>
+      </div>
+
+      <button type="submit" id="submitBtn">Send message</button>
+      <p class="form-note" id="formNote" role="status"></p>
+    </form>
+  </section>
+
+  <section id="address">
+    <div class="section-head"><h2>Base</h2></div>
+    <p>K.R. Mangalam University, Sohna–Gurgaon Rd, Gurugram, Sohna Rural, Haryana 122103</p>
+    <div class="map-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3513.877447275001!2d77.06659967527517!3d28.2717326758637!2m3!1f0!2f0!3f0!3m2!1s0x390d25a4b2bc03f9%3A0x9f642d679654b239!2sK.R.%20Mangalam%20University!5e0!3m2!1sen!2sin!4v1790056612256!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Khushhal Chaudhary &middot; Zenith School of AI</p>
+  <a class="to-top" href="#top">Back to top</a>
+</footer>
+
+<script>
+  // Scroll-triggered section reveal
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sections = document.querySelectorAll('main section');
+
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    sections.forEach((s) => s.classList.add('is-visible'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    sections.forEach((s) => observer.observe(s));
+  }
+
+  // Contact form validation
+  const form = document.querySelector('.contact-form');
+  const note = document.getElementById('formNote');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function validate() {
+    let ok = true;
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    if (!name) {
+      nameError.textContent = 'Please enter your name.';
+      ok = false;
+    } else {
+      nameError.textContent = '';
+    }
+
+    if (!email || !emailPattern.test(email)) {
+      emailError.textContent = 'Please enter a valid email address.';
+      ok = false;
+    } else {
+      emailError.textContent = '';
+    }
+
+    return ok;
+  }
+
+  [nameInput, emailInput].forEach((el) => {
+    el.addEventListener('blur', validate);
+    el.addEventListener('input', () => {
+      if (nameError.textContent || emailError.textContent) validate();
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      note.textContent = 'Please fix the fields above before sending.';
+      return;
+    }
+    const name = nameInput.value.trim();
+    note.textContent = `Thanks, ${name} — this is a demo form, so nothing was actually sent.`;
+    form.reset();
+  });
+</script>
+
+</body>
+</html> -->
